@@ -4,10 +4,9 @@
 
 import cv2
 import numpy as np
-
+import os
 
 # Assumes annotations are in the same folder alongside images, and of the same name with txt 
-# TODO, this just returns the first annotation, adjust later for more bbs 
 def get_annotations(img_path):
 	annotations_path = img_path[:-3]+'txt'
 	f = open(annotations_path, "r")
@@ -19,13 +18,16 @@ def get_annotations(img_path):
 # REPLACE with dataset path 
 # Returns list of images corresponding to paths 
 def get_images(): 
-	return ['example_images/can_chowder_01.jpg', 'example_images/can_soymilk_02.jpg']
+	images = ['example_images/'+file_name for file_name in os.listdir('example_images') if file_name.endswith('jpg')]
+	return images
+
 
 # REPLACE with path 
 # masks saved during make_occ_data function
 # used for IOU stats 
 def get_occluded_masks(): 
-	return ['occluded_masks/can_chowder_01.jpg', 'occluded_masks/can_soymilk_02.jpg']
+	images = ['occluded_masks/'+file_name for file_name in os.listdir('occluded_masks')]
+	return images
 	
 # annotations are in yolo format x,y,w,h
 # where (x,y) are the center point of the bb, w,h are the width and height of the bb, 
